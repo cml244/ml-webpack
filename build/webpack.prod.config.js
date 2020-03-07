@@ -5,6 +5,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackExternalsPlugin = require('html-webpack-externals-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const merge = require('webpack-merge')
+const path = require('path')
 module.exports = () => {
     return merge(baseConfig,{
         mode:'production',
@@ -49,8 +50,9 @@ module.exports = () => {
             new UglifyJsPlugin(),
             new CopyWebpackPlugin([
                 {
-                    from: __dirname +'/static',
-                    to:__dirname + '/dist/static'
+                    from: path.resolve(__dirname, '../static'),
+                    to:path.resolve(__dirname, '../dist/static'),
+                    ignore: ['.*']
                 }
             ]),
             new HtmlWebpackExternalsPlugin({
